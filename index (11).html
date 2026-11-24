@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0a1a">
+<title>For Andria ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a1a; --bg2:#15122e; --ink:#efeaf7; --soft:#b9b0d0;
+  --pink:#f2a7c8; --violet:#a58bf0; --blue:#6f8cf0;
+  --glass:rgba(255,255,255,.06); --line:rgba(255,255,255,.12);
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:radial-gradient(ellipse at 20% 0%,#241a4a 0%,transparent 55%),radial-gradient(ellipse at 90% 40%,#2a1740 0%,transparent 50%),linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg));
+  background-attachment:fixed;color:var(--ink);font:400 1.06rem/1.75 var(--sans);overflow-x:hidden;min-height:100vh}
+body.locked{overflow:hidden;height:100vh}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.2}
+h2{font-size:clamp(1.9rem,7vw,2.8rem);margin-bottom:1.2rem;text-align:center}
+p{margin-bottom:1rem}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:12px}
+
+/* ---------- Opening ---------- */
+#intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;
+  background:radial-gradient(ellipse at 50% 30%,#2b1d55 0%,#0b0a1a 70%);transition:opacity 1s ease,transform 1s ease,visibility 1s}
+#intro.gone{opacity:0;transform:translateY(-4%) scale(1.03);visibility:hidden;pointer-events:none}
+#intro .tiny{color:var(--pink);letter-spacing:.12em;font-size:.95rem;margin-bottom:1.4rem}
+#intro h1{font-size:clamp(3rem,15vw,5.5rem);margin-bottom:1rem}
+#intro .line{opacity:0;transform:translateY(12px);animation:rise .9s ease forwards;color:var(--soft);font-size:1.15rem;margin-bottom:.4rem}
+#intro .l1{animation-delay:.9s}#intro .l2{animation-delay:1.9s}#intro .btn{opacity:0;animation:rise .9s 2.9s ease forwards}
+#intro .tiny,#intro h1{opacity:0;animation:rise .9s .2s ease forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:.8rem 2rem;border-radius:999px;margin-top:2rem;
+  background:linear-gradient(135deg,rgba(242,167,200,.25),rgba(165,139,240,.25));border:1px solid rgba(242,167,200,.45);
+  box-shadow:0 0 28px rgba(242,167,200,.18);font-weight:600;transition:transform .2s,box-shadow .3s}
+.btn:active{transform:scale(.97)}
+.btn:hover{box-shadow:0 0 36px rgba(242,167,200,.35)}
+
+/* ---------- Layout ---------- */
+main{position:relative;z-index:1;opacity:0;transition:opacity 1.2s ease}
+main.show{opacity:1}
+section{max-width:640px;margin:0 auto;padding:5rem 1.4rem}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:26px;padding:1.8rem 1.5rem;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.rv.in{opacity:1;transform:none}
+.center{text-align:center}
+.kicker{color:var(--pink);text-align:center;margin-bottom:.6rem;font-size:1rem}
+.letter p{font-size:1.1rem}
+.letter .hl{font-family:var(--serif);font-size:1.45rem;font-style:italic;color:#fff;margin:1.4rem 0}
+
+/* ---------- Pretend ---------- */
+#pretend .glass{text-align:center;position:relative;overflow:hidden}
+#pretend .glass::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle,rgba(165,139,240,.22),transparent 55%);animation:breathe 7s ease-in-out infinite}
+#pretend .glass>*{position:relative}
+#pretend p{font-family:var(--serif);font-size:1.4rem;line-height:1.5;margin-bottom:1rem}
+#pretend .glow{color:#fff;text-shadow:0 0 22px rgba(242,167,200,.7);font-style:italic}
+@keyframes breathe{50%{transform:scale(1.2);opacity:.6}}
+
+/* ---------- Cards ---------- */
+.stack{display:grid;gap:.9rem}
+.card{width:100%;text-align:left;border-radius:22px;background:var(--glass);border:1px solid var(--line);padding:1.1rem 1.3rem;min-height:60px;transition:border-color .3s,background .3s}
+.card:hover,.card[aria-expanded="true"]{border-color:rgba(242,167,200,.5);background:rgba(242,167,200,.07)}
+.card .t{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--serif);font-size:1.4rem}
+.card .t i{font-style:normal;color:var(--pink);transition:transform .35s}
+.card[aria-expanded="true"] .t i{transform:rotate(45deg)}
+.card .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.card[aria-expanded="true"] .body{grid-template-rows:1fr}
+.card .body>div{overflow:hidden}
+.card .body p{color:var(--soft);padding-top:.7rem;margin:0}
+
+/* ---------- Heavy ---------- */
+#heavy{text-align:center}
+#heavy .calm{background:linear-gradient(180deg,rgba(111,140,240,.12),rgba(111,140,240,.03));border-radius:30px;padding:3rem 1.5rem;border:1px solid var(--line)}
+#heavy p{font-family:var(--serif);font-size:1.5rem;color:var(--soft);margin-bottom:1.3rem}
+#heavy .last{color:#fff;font-style:italic}
+
+/* ---------- Music ---------- */
+#music .glass{text-align:center;padding:2.4rem 1.5rem}
+#music small{display:block;color:var(--soft);margin-bottom:.8rem}
+#music .hint{color:var(--pink);margin:0}
+
+/* ---------- Floating music button (main music control) ---------- */
+#musicFab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:9999;
+  min-width:124px;height:54px;padding:0 1.3rem;border-radius:999px;display:flex;align-items:center;justify-content:center;white-space:nowrap;
+  font-size:1.05rem;font-weight:600;line-height:1;color:#fff;cursor:pointer;
+  background:rgba(40,28,80,.55);border:1px solid rgba(242,167,200,.55);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 20px rgba(165,139,240,.3);
+  opacity:0;visibility:hidden;transform:scale(.8);
+  transition:opacity .6s ease,visibility .6s,transform .15s ease,box-shadow .3s ease,border-color .3s ease;touch-action:manipulation}
+#musicFab.show{opacity:1;visibility:visible;transform:scale(1)}
+#musicFab.show:active{transform:scale(.92)}
+@media (hover:hover){#musicFab.show:hover{box-shadow:0 6px 22px rgba(0,0,0,.45),0 0 30px rgba(242,167,200,.45)}}
+#musicFab.playing{border-color:var(--pink);box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 28px rgba(242,167,200,.55);animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(242,167,200,.5),0 0 24px rgba(165,139,240,.45)}100%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 20px rgba(242,167,200,0),0 0 24px rgba(165,139,240,.45)}}
+@media (max-width:400px){#musicFab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));min-width:116px;height:50px;font-size:1rem}}
+#musicMsg{position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:9998;margin:0;
+  max-width:min(260px,calc(100vw - 40px));padding:.5rem .9rem;border-radius:14px;
+  background:rgba(20,15,45,.88);border:1px solid var(--line);color:var(--pink);font-size:.9rem;line-height:1.4;
+  opacity:0;pointer-events:none;transition:opacity .4s ease}
+#musicMsg.show{opacity:1}
+@media (max-width:400px){#musicMsg{right:14px;bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+
+/* ---------- Appreciate ---------- */
+.tiles{display:grid;grid-template-columns:1fr;gap:.8rem}
+.tile{padding:1.1rem 1.3rem;border-radius:20px;background:var(--glass);border:1px solid var(--line)}
+@media(min-width:560px){.tiles{grid-template-columns:1fr 1fr}.tile:last-child:nth-child(odd){grid-column:1/-1}}
+
+/* ---------- Timeline ---------- */
+.tl{position:relative;padding-left:1.8rem;margin-top:2rem}
+.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--pink),var(--violet),transparent)}
+.tl .item{position:relative;margin-bottom:2rem}
+.tl .item::before{content:"";position:absolute;left:-1.8rem;top:.55rem;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--pink);box-shadow:0 0 14px rgba(242,167,200,.6)}
+.tl h3{font-size:1.5rem}
+.tl p{color:var(--soft);margin:0}
+
+/* ---------- Letter / quote / promise ---------- */
+.quote{text-align:center;padding:3rem 1.6rem}
+.quote q{display:block;font-family:var(--serif);font-size:clamp(1.7rem,6.5vw,2.4rem);font-style:italic;line-height:1.35;quotes:"“" "”"}
+.quote cite{display:block;margin-top:1.2rem;color:var(--pink);font-style:normal}
+.promise p{padding:1rem 0;border-bottom:1px solid var(--line);margin:0}
+.promise p:last-child{border:0}
+
+/* ---------- Final ---------- */
+#final{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;max-width:640px;margin:0 auto;padding:4rem 1.4rem}
+#final p{margin-bottom:1.1rem;font-family:var(--serif);font-size:1.5rem;line-height:1.5}
+#final .dim{color:var(--soft)}
+#final .heart{font-size:3rem;color:var(--pink);text-shadow:0 0 26px rgba(242,167,200,.8);margin:.6rem 0}
+#sign{opacity:0;transition:opacity 2s ease;margin-top:1rem}
+#sign.in{opacity:1}
+#sign .made{font-family:var(--sans);font-size:1rem;color:var(--soft)}
+#hidden{min-height:3.4rem;margin-top:1rem;color:var(--pink);opacity:0;transform:translateY(8px);transition:all .8s ease;font-family:var(--serif);font-size:1.3rem}
+#hidden.in{opacity:1;transform:none}
+footer{height:6rem}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  #intro .line,#intro .tiny,#intro h1,#intro .btn{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<!-- ============ OPENING SCREEN ============ -->
+<div id="intro">
+  <div class="tiny" id="introFor"></div>
+  <h1>Hey, you.</h1>
+  <p class="line l1">I made something small for you.</p>
+  <p class="line l2">Open it when you have a moment.</p>
+  <button class="btn" id="openBtn" type="button">Open this for me ♡</button>
+</div>
+
+<main id="main">
+  <!-- Main message (edit in CONFIG.mainMessage) -->
+  <section id="message">
+    <p class="kicker">Just a little reminder</p>
+    <div class="glass letter rv" id="mainMsg"></div>
+  </section>
+
+  <!-- You don't have to pretend (edit in CONFIG.pretend) -->
+  <section id="pretend">
+    <div class="glass rv">
+      <h2>You don’t have to pretend.</h2>
+      <div id="pretendLines"></div>
+    </div>
+  </section>
+
+  <!-- Interactive cards (edit in CONFIG.cards) -->
+  <section id="cards">
+    <h2 class="rv">A few things I hope you never forget</h2>
+    <div class="stack rv" id="cardStack"></div>
+  </section>
+
+  <!-- If today feels heavy (edit in CONFIG.heavy) -->
+  <section id="heavy">
+    <div class="calm rv">
+      <h2>If today feels heavy...</h2>
+      <div id="heavyLines"></div>
+    </div>
+  </section>
+
+  <!-- Music -->
+  <section id="music">
+    <div class="glass rv">
+      <h2>A song for you ♫</h2>
+      <small>You can play it while you read the rest.</small>
+      <p class="hint">The little button in the corner is your music control. ♫</p>
+      <!-- The song file must sit next to index.html and be named exactly: no-surprises.mp3 -->
+      <audio id="birthdayMusic" src="./no-surprises.mp3" loop preload="none"></audio>
+    </div>
+  </section>
+
+  <!-- Little things I appreciate (edit in CONFIG.appreciate) -->
+  <section id="appreciate">
+    <h2 class="rv">Little things I appreciate</h2>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <!-- Timeline (edit each entry in CONFIG.timeline) -->
+  <section id="timeline">
+    <h2 class="rv">Some little moments</h2>
+    <div class="tl" id="tl"></div>
+  </section>
+
+  <!-- Letter (edit in CONFIG.letter) -->
+  <section id="letter">
+    <div class="glass letter rv">
+      <h2>One more thing...</h2>
+      <div id="letterBody"></div>
+    </div>
+  </section>
+
+  <!-- Quote (edit in CONFIG.quote) -->
+  <section id="quoteSec">
+    <div class="glass quote rv"><q id="quoteText"></q><cite id="quoteBy"></cite></div>
+  </section>
+
+  <!-- Promise (edit in CONFIG.promise) -->
+  <section id="promiseSec">
+    <h2 class="rv">A simple promise</h2>
+    <div class="glass promise rv" id="promiseList"></div>
+  </section>
+
+  <!-- Final message (edit in CONFIG.finalLines) -->
+  <div id="final">
+    <div id="finalLines"></div>
+    <div class="heart rv">♡</div>
+    <div id="sign"><p id="signName"></p><p class="made">Made just for you.</p></div>
+    <button class="btn" id="lastBtn" type="button" aria-expanded="false" aria-controls="hidden">One last thing...</button>
+    <p id="hidden" role="status" aria-live="polite"></p>
+  </div>
+  <footer></footer>
+</main>
+
+<!-- FLOATING MUSIC BUTTON: the main music control. Controls the single audio element #birthdayMusic (no-surprises.mp3). Shown after the opening screen. -->
+<button id="musicFab" type="button" aria-label="Play music" title="Play music">Play me ♫</button>
+<p id="musicMsg" role="status" aria-live="polite"></p>
+
+<script>
+/* =========================================================
+   EDIT HERE — all names, dates and messages live in CONFIG.
+   Each block is an array of lines/paragraphs you can change.
+   ========================================================= */
+const CONFIG = {
+  herName: "Andria",
+  myName: "Carl",
+  date: "November 17, 2026",
+
+  // MAIN MESSAGE — paragraphs shown under "Just a little reminder"
+  mainMessage: [
+    "Hey baby. I’m really glad I get to be with you, and I appreciate you more than I always say out loud. I love you.",
+    "You don’t always have to explain everything to me.",
+    "If you’re tired, quiet, annoyed, overwhelmed, or just don’t feel like talking, you don’t have to force yourself. I’d rather understand you than pressure you. That’s what being on your side means to me.",
+    "If you need time, I’ll respect it.",
+    "If you ever want to talk, I’ll listen.",
+    "No pressure. No guessing. Just honesty, patience, and understanding. ♡"
+  ],
+
+  // "YOU DON'T HAVE TO PRETEND" lines (the last one glows)
+  pretend: [
+    "You don’t have to smile when you’re tired.",
+    "You don’t have to explain every quiet moment.",
+    "You don’t have to act okay just to make other people comfortable.",
+    "You can simply be yourself."
+  ],
+
+  // INTERACTIVE CARDS — title + revealed message
+  cards: [
+    { t: "You matter.", m: "Not for what you do or how you’re feeling today. Just because you’re you, baby." },
+    { t: "You’re appreciated.", m: "Even on the days it goes unsaid, it’s true. I notice you, even when I don’t say it." },
+    { t: "You’re allowed to have bad days.", m: "A bad day doesn’t cancel out anything good about you." },
+    { t: "You don’t have to pretend you’re okay.", m: "If you’re not, that’s fine. You don’t need to hide it from me." },
+    { t: "Your happiness matters too.", m: "Take care of yourself first, baby. The rest can wait." }
+  ],
+
+  // "IF TODAY FEELS HEAVY" lines (the last one is highlighted)
+  heavy: [
+    "Take your time.",
+    "Breathe.",
+    "Rest if you need to.",
+    "You don’t have to solve everything at once.",
+    "Tomorrow doesn’t have to be perfect either."
+  ],
+
+  // LITTLE THINGS I APPRECIATE
+  appreciate: [
+    "Your presence",
+    "Your little reactions",
+    "The way you make ordinary moments feel different",
+    "The moments when you’re simply yourself",
+    "The time you choose to spend with me",
+    "Getting to be your boyfriend"
+  ],
+
+  // TIMELINE — edit each title and text with your real memories
+  timeline: [
+    { t: "The beginning", m: "A moment from when we first got close that I still remember." },
+    { t: "That random day", m: "Something small that somehow stayed in my head." },
+    { t: "One of those moments", m: "Nothing extraordinary. Just something I appreciated." },
+    { t: "Today", m: "Still grateful I get to be with you, baby." }
+  ],
+
+  // PERSONAL LETTER — "One more thing..."
+  letter: [
+    "I wasn’t making this because something is wrong. I just wanted to make something that might make you smile.",
+    "I don’t expect a long reply, and I don’t want you to feel any pressure. I only wanted you to know that you’re appreciated, and that I’m happy to be with you.",
+    "You’re my baby, and I love you. I just want you to feel that, with no pressure attached.",
+    "You don’t owe me a perfect version of yourself.",
+    "I like you for who you are, not for how well you can pretend everything is okay."
+  ],
+
+  // QUOTE
+  quote: "Sometimes the smallest reminders mean the most.",
+
+  // PROMISE
+  promise: [
+    "I’ll keep learning how to understand you instead of assuming.",
+    "I’ll listen when you want to talk.",
+    "I’ll respect your quiet moments.",
+    "And I’ll appreciate the moments you choose to share with me."
+  ],
+
+  // FINAL MESSAGE (shown before the ♡)
+  finalLines: [
+    "That’s all I wanted to say.",
+    "I don’t need you to reply to this immediately.",
+    "I just wanted you to have something that reminds you that I genuinely care about you, even on the quiet days.",
+    "Take your time.",
+    "Enjoy your day.",
+    "Smile when you can.",
+    "I love you, baby."
+  ],
+
+  // HIDDEN MESSAGE — appears after "One last thing..."
+  hiddenMessage: "You’re more appreciated than you probably realize, baby. ♡"
+};
+/* ================= END OF EDITABLE AREA ================= */
+
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+  function lines(arr, cls) { return arr.map(function (s, i) { return "<p" + (cls ? ' class="' + cls(i, arr.length) + '"' : "") + ">" + esc(s) + "</p>"; }).join(""); }
+
+  /* ---------- Build content from CONFIG ---------- */
+  document.title = "For " + CONFIG.herName + " ♡";
+  $("introFor").textContent = "For " + CONFIG.herName + " ♡";
+
+  // Main message: highlight the key sentence with the serif style
+  $("mainMsg").innerHTML = CONFIG.mainMessage.map(function (s) {
+    var key = s.indexOf("You don’t always have to explain everything to me.") === 0;
+    return "<p" + (key ? ' class="hl"' : "") + ">" + esc(key ? "You don’t always have to explain everything to me." : s) + "</p>";
+  }).join("");
+
+  $("pretendLines").innerHTML = lines(CONFIG.pretend, function (i, n) { return i === n - 1 ? "glow" : ""; });
+  $("heavyLines").innerHTML = lines(CONFIG.heavy, function (i, n) { return i === n - 1 ? "last" : ""; });
+  $("letterBody").innerHTML = lines(CONFIG.letter);
+  $("promiseList").innerHTML = lines(CONFIG.promise);
+  $("finalLines").innerHTML = lines(CONFIG.finalLines, function (i) { return i >= 3 ? "dim" : ""; });
+  $("quoteText").textContent = CONFIG.quote;
+  $("quoteBy").textContent = "— " + CONFIG.myName;
+  $("signName").textContent = "— " + CONFIG.myName;
+  $("tiles").innerHTML = CONFIG.appreciate.map(function (s) { return '<div class="tile rv">' + esc(s) + "</div>"; }).join("");
+  $("tl").innerHTML = CONFIG.timeline.map(function (e) {
+    return '<div class="item rv"><h3>' + esc(e.t) + "</h3><p>" + esc(e.m) + "</p></div>";
+  }).join("");
+
+  // Cards (tap to expand / collapse)
+  $("cardStack").innerHTML = CONFIG.cards.map(function (c, i) {
+    return '<button class="card" type="button" aria-expanded="false" aria-controls="cb' + i + '">' +
+      '<span class="t"><span>' + esc(c.t) + '</span><i aria-hidden="true">+</i></span>' +
+      '<span class="body" id="cb' + i + '"><span><p>' + esc(c.m) + "</p></span></span></button>";
+  }).join("");
+  document.querySelectorAll(".card").forEach(function (b) {
+    b.addEventListener("click", function () {
+      b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") === "true" ? "false" : "true");
+    });
+  });
+
+  /* ---------- Opening transition ---------- */
+  $("openBtn").addEventListener("click", function () {
+    $("intro").classList.add("gone");
+    document.body.classList.remove("locked");
+    $("main").classList.add("show");
+    $("musicFab").classList.add("show");
+    window.scrollTo(0, 0);
+    watchReveals();
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  function watchReveals() {
+    var els = document.querySelectorAll(".rv");
+    if (!("IntersectionObserver" in window) || reduce) { els.forEach(function (e) { e.classList.add("in"); }); revealSign(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function (e) { io.observe(e); });
+    var fin = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { revealSign(); fin.disconnect(); }
+    }, { threshold: 0.5 });
+    fin.observe($("final").querySelector(".heart"));
+  }
+  function revealSign() { setTimeout(function () { $("sign").classList.add("in"); }, reduce ? 0 : 1800); }
+
+  /* ---------- Music (local file: no-surprises.mp3) ---------- */
+  // The audio element is the single source of truth: the button only
+  // reflects audio.paused, and is re-rendered from the audio's own events.
+  var audio = $("birthdayMusic"), btn = $("musicFab"), msg = $("musicMsg"), msgTimer;
+  function toast(text) {
+    msg.textContent = text;
+    msg.classList.add("show");
+    clearTimeout(msgTimer);
+    msgTimer = setTimeout(function () { msg.classList.remove("show"); }, 4500);
+  }
+  function render() {
+    var on = !audio.paused && !audio.ended;
+    btn.classList.toggle("playing", on);
+    btn.textContent = on ? "Ⅱ Pause" : "Play me ♫";
+    btn.setAttribute("aria-label", on ? "Pause music" : "Play music");
+    btn.title = on ? "Pause music" : "Play music";
+  }
+  // Looks up the file so the console shows exactly what the browser got (404 = wrong name/location).
+  function checkFile() {
+    if (!window.fetch) return;
+    fetch("./no-surprises.mp3", { method: "HEAD", cache: "no-store" })
+      .then(function (r) {
+        console.log("no-surprises.mp3 request status:", r.status, r.statusText);
+        if (!r.ok) toast("Music file not found (error " + r.status + "). Check the file name.");
+      })
+      .catch(function (err) { console.error("File check failed:", err); });
+  }
+  audio.addEventListener("error", function () {
+    console.error("Audio loading error:", audio.error);
+    render();
+    toast("Music couldn’t be loaded.");
+    checkFile();
+  });
+  // ONE click handler. audio.play() is called directly inside the tap (required by mobile browsers).
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (audio.paused) {
+      msg.classList.remove("show");
+      if (audio.error) { audio.load(); } // retry after an earlier load failure
+      var result = audio.play();
+      if (result !== undefined) {
+        result
+          .then(function () { render(); })
+          .catch(function (error) {
+            console.error("Audio playback failed:", error);
+            render();
+            if (!audio.error) toast("Music couldn’t start. Please tap the button again.");
+          });
+      }
+    } else {
+      audio.pause();
+    }
+  });
+  ["play", "playing", "pause", "ended"].forEach(function (ev) { audio.addEventListener(ev, render); });
+  render();
+
+  /* ---------- Hidden message ---------- */
+  $("lastBtn").addEventListener("click", function () {
+    var h = $("hidden");
+    h.textContent = CONFIG.hiddenMessage;
+    h.classList.add("in");
+    this.setAttribute("aria-expanded", "true");
+  });
+
+  /* ---------- Soft starfield (light, pauses when tab hidden) ---------- */
+  var cv = $("stars"), cx = cv.getContext("2d"), W, H, pts = [], raf;
+  function size() {
+    var r = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.width = innerWidth * r; H = cv.height = innerHeight * r;
+    var n = Math.round(Math.min(70, innerWidth / 9));
+    pts = [];
+    for (var i = 0; i < n; i++) pts.push({
+      x: Math.random() * W, y: Math.random() * H, r: (Math.random() * 1.4 + .4) * r,
+      s: (Math.random() * .12 + .03) * r, t: Math.random() * 6.28,
+      c: Math.random() < .25 ? "242,167,200" : "200,190,255"
+    });
+  }
+  function draw() {
+    cx.clearRect(0, 0, W, H);
+    pts.forEach(function (p) {
+      p.t += .015; p.y -= p.s; if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
+      cx.fillStyle = "rgba(" + p.c + "," + (.25 + .35 * Math.sin(p.t)) + ")";
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.28); cx.fill();
+    });
+    raf = requestAnimationFrame(draw);
+  }
+  size(); addEventListener("resize", size);
+  if (reduce) { draw(); cancelAnimationFrame(raf); }
+  else {
+    draw();
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) cancelAnimationFrame(raf); else draw();
+    });
+  }
+})();
+</script>
+</body>
+</html>
